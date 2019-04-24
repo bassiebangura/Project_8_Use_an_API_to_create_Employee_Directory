@@ -1,29 +1,11 @@
 main {
-    grid-area: main;
     display: grid;
     grid-template-columns:minmax(0, 1fr);
     grid-template-rows: minmax(32px, auto);
-    grid-template-areas: 
-    "dashboard-heading-search"
-    "web-traffic-chart"
-    "daily-traffic-chart"
-    "mobile-users-chart"
-    "social-stats"
-    "new-members"
-    "recent-activities"
-    "message-user"
-    "settings";
+ 
     @include mq($sm) {
-        grid-template-columns:1fr 1fr;
-        grid-template-rows: minmax(40px, auto);
-        grid-template-areas: 
-            "dashboard-heading-search dashboard-heading-search"
-            "web-traffic-chart web-traffic-chart"
-            "daily-traffic-chart mobile-users-chart"
-            "social-stats social-stats"
-            "new-members recent-activities"
-            "message-user settings";
-        
+        grid-template-columns:1fr 1fr 1fr;
+        grid-template-rows: minmax(40px, auto);   
     }
 }
 
