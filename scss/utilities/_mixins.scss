@@ -1,0 +1,49 @@
+//******** Flexbox Mixin ********
+//@include flexible(display, direction, wrap, justify-content, align-items) {}
+@mixin flexible(
+    $display: flex,
+    $direction: null,
+    $wrap: null,
+    $justify-content: flex-start,
+    $align-items: flex-start)
+    //null prevents unwanted css output
+    {
+        display: $display;
+        flex-direction: $direction;
+        flex-wrap: $wrap;
+        justify-content: $justify-content;
+        align-items: $align-items;
+        @content;
+    };
+
+//******** Media Query Mixin ********
+// @include mq(sm) {}
+@mixin mq($breakpoint) {
+    @media (min-width: $breakpoint) {
+        @content;
+    }
+  }
+
+
+//********** Centering Mixin ********
+@mixin centerer {
+    margin: auto;
+    text-align: center;
+}
+
+
+
+@mixin btn(
+    $background-color: null,
+     $width: 100%) {
+        text-transform: uppercase;
+        width: $width;
+        background-color: $background-color;
+        border: none;
+        border-radius: 0.25em;
+        padding: 0.75em;
+        margin-top: 0.8em;
+        color: white;
+        @content;
+    }
+

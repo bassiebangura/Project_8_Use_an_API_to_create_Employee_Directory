@@ -1,0 +1,18 @@
+.banner {
+    grid-area: banner;
+    padding: 0.2em 0.8em 0.2em 0.6em;
+}
+
+.banner__container {
+    margin: 0;
+    color: white;
+    font-size: 0.8em;
+    @include mq($xxs) {
+        font-size: 1em;
+    }
+   
+}
+
+
+
+

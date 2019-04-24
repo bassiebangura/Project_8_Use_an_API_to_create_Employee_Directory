@@ -1,0 +1,27 @@
+
+//styles all element on the page
+/* {
+    border: 1px solid red; //for debug tools
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -o-box-sizing: border-box;
+} */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+//Defining the centered css class
+.centered {
+    @include centerer;
+}
+
+
+
+
+
+
+
+
