@@ -1,5 +1,5 @@
 .container  {
-    /** Media Query for Desktop View **/
+    /** Media Query for Desktop View ***/
     @include mq($md) {
         width: 95%;
         margin: auto;
