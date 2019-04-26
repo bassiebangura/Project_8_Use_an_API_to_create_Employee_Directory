@@ -1,19 +1,12 @@
 .container  {
+    background-color: #eee;
     /** Media Query for Desktop View ***/
     @include mq($md) {
-        width: 95%;
+        width: 90%;
         margin: auto;
-        background-color: #eee;
     }
 }
 
 
-.banner__container {
-    @include flexible($direction: row);
-    /*@include mq($sm) {
-            @include flexible($direction: row,
-                               $justify-content: center);
-            
-        }*/
-}
+
 
