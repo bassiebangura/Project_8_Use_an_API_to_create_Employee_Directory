@@ -395,15 +395,14 @@ th {
   padding: 0;
 }
 
-* {
-  border: 1px solid firebrick;
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -ms-box-sizing: border-box;
-  -o-box-sizing: border-box;
-}
-
+/* {
+    border: 1px solid firebrick; //for debug tools
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -o-box-sizing: border-box;
+}; */
 ul {
   list-style: none;
   padding: 0;
@@ -422,6 +421,7 @@ ul {
   .container {
     width: 95%;
     margin: auto;
+    background-color: #eee;
   }
 }
 
@@ -464,7 +464,7 @@ ul {
 }
 
 /** Section containing Dashboard Heading and Search Bar **/
-main {
+.employee-directory-wrapper {
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: minmax(0, 1fr);
@@ -476,7 +476,7 @@ main {
 }
 
 @media (min-width: 576px) {
-  main {
+  .employee-directory-wrapper {
     -ms-grid-columns: 1fr 1fr;
         grid-template-columns: 1fr 1fr;
     -ms-grid-rows: minmax(40px, auto);
@@ -485,12 +485,38 @@ main {
 }
 
 @media (min-width: 768px) {
-  main {
+  .employee-directory-wrapper {
     -ms-grid-columns: 1fr 1fr 1fr;
         grid-template-columns: 1fr 1fr 1fr;
     -ms-grid-rows: minmax(40px, auto);
         grid-template-rows: minmax(40px, auto);
   }
+}
+
+/**** Employees Directory ****/
+.employee__card {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  text-align: left;
+  padding: 0.4em 0 0.4em 0;
+  border: 1.2px solid #aaa;
+  border-radius: 4.5px;
+  background-color: #fff;
+}
+
+.employee__card__details > * {
+  margin: 0 0.5em;
 }
 
 /*** Defines name of grid areas within thee nav ***/
@@ -503,8 +529,8 @@ main {
 }
 
 .img--avatar {
-  width: 32px;
-  height: 32px;
+  width: 90px;
+  height: 90px;
   border-radius: 50%;
 }
 
