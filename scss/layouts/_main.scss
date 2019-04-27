@@ -3,8 +3,9 @@
     grid-template-columns:minmax(0, 1fr);
     grid-template-rows: minmax(40px, auto);
     grid-gap: 1.2em 1.2em;
-    padding: 1em;
+    padding: 0 1em 1em 1em;
     width: 100%;
+    margin: 0 auto 0 auto;
 
     @include mq($xs) {
         grid-template-columns:minmax(0, 1fr) minmax(0, 1fr);

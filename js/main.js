@@ -49,7 +49,7 @@ const addData = (data) => {
         let lastName = item.name.last.capitalize();
         let fullName = `${firstName} ${lastName}`;
         let city = item.location.city.capitalize();
-        let emailAddress = item.email.capitalize(); 
+        let emailAddress = item.email; 
         let imgSource = item.picture.medium;
 
         let liElement = document.createElement("li");
