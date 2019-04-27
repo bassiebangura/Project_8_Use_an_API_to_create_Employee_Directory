@@ -1,7 +1,9 @@
 .container  {
     background-color: #eee;
+    margin: auto;
+    width: 100%;
     /** Media Query for Desktop View ***/
-    @include mq($md) {
+    @include mq($sm) {
         width: 90%;
         margin: auto;
     }

@@ -4,38 +4,44 @@
     grid-template-rows: minmax(40px, auto);
     grid-gap: 1.2em 1.2em;
     padding: 1em;
+    width: 100%;
 
     @include mq($xs) {
-        grid-template-columns:1fr 1fr;
-        grid-template-rows: minmax(40px, auto);   
+        grid-template-columns:minmax(0, 1fr) minmax(0, 1fr);;
+        grid-template-rows: minmax(0, auto);   
     }
  
     @include mq($sm) {
-        grid-template-columns:1fr 1fr 1fr;
-        grid-template-rows: minmax(40px, auto);   
+        grid-template-columns:minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
+        grid-template-rows: minmax(0, auto);   
     }
 }
 
+ 
 /**** Employees Directory ****/
 
 .employee__card {
-    @include flexible($direction: row);
-    text-align: left;
-    padding: 0.4em 0 0.4em 0;
+    @include flexible($direction: row,
+                       $justify-content: left);
     border: 1.2px solid #aaa;
     border-radius: 5px;
     background-color: #fff;
-    padding: 1em;
+    padding: 0.9em;
+    width: 100%;
 }
 
 .employee__card__details {
-    margin:auto 0.2em auto 0.2em;
+    margin:auto 1.5em auto 0.2em;
+    width: 100%;
 }
 
 .employee__card__details > * {
     margin: 0 0.5em;
 }
 
+.employee__card__details__name {
+    font-weight: bold;
+}
 
 
 
