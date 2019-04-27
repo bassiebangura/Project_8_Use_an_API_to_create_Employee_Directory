@@ -4,7 +4,7 @@
     height: 60px;
     border-radius: 50%;
 
-    @include mq($xxs) {
+    @include mq($xs) {
         height: 90px;
         width: 90px;
     }

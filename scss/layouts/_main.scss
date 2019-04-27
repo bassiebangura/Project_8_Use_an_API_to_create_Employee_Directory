@@ -7,11 +7,11 @@
     width: 100%;
 
     @include mq($xs) {
-        grid-template-columns:minmax(0, 1fr) minmax(0, 1fr);;
+        grid-template-columns:minmax(0, 1fr) minmax(0, 1fr);
         grid-template-rows: minmax(0, auto);   
     }
  
-    @include mq($sm) {
+    @include mq($md) {
         grid-template-columns:minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
         grid-template-rows: minmax(0, auto);   
     }

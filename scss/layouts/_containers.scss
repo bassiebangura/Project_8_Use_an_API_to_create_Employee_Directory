@@ -3,10 +3,16 @@
     margin: auto;
     width: 100%;
     /** Media Query for Desktop View ***/
-    @include mq($sm) {
-        width: 90%;
+    @include mq($md) {
+        width: 95%;
         margin: auto;
     }
+
+    @include mq($lg) {
+        width: 80%;
+        margin: auto;
+    }
+
 }
 
 

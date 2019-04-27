@@ -396,7 +396,6 @@ th {
 }
 
 * {
-  border: 1px solid firebrick;
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -421,9 +420,16 @@ ul {
   /** Media Query for Desktop View ***/
 }
 
-@media (min-width: 968px) {
+@media (min-width: 1024px) {
   .container {
-    width: 90%;
+    width: 95%;
+    margin: auto;
+  }
+}
+
+@media (min-width: 2000px) {
+  .container {
+    width: 80%;
     margin: auto;
   }
 }
@@ -459,7 +465,7 @@ ul {
   width: 100%;
 }
 
-@media (min-width: 598px) {
+@media (min-width: 620px) {
   .employee-directory-wrapper {
     -ms-grid-columns: minmax(0, 1fr) minmax(0, 1fr);
         grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -468,7 +474,7 @@ ul {
   }
 }
 
-@media (min-width: 968px) {
+@media (min-width: 1024px) {
   .employee-directory-wrapper {
     -ms-grid-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
         grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
@@ -513,8 +519,16 @@ ul {
 }
 
 /*** Defines name of grid areas within thee nav ***/
-.employee__card__details {
-  font-size: 0.6em;
+.employee__card__details__email {
+  font-size: 13px;
+}
+
+.employee__card__details__name {
+  font-size: 1em;
+}
+
+.employee__card__details__city {
+  font-size: 14px;
 }
 
 .img--avatar {
@@ -523,7 +537,7 @@ ul {
   border-radius: 50%;
 }
 
-@media (min-width: 320px) {
+@media (min-width: 620px) {
   .img--avatar {
     height: 90px;
     width: 90px;
