@@ -1,9 +1,15 @@
-let mainContainer = document.getElementById("employee-list-container")
-
 /**** creates a capitalize method on javascript prototype ****/
 String.prototype.capitalize = function() {
     return this.replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
 };
+
+//reverse string helper function
+const reverseString = str => str.split("").reverse().join("");
+
+
+let mainContainer = document.getElementById("employee-list-container")
+
+
 
 const addData = (data) => {
     for (const item of data) {
@@ -15,6 +21,13 @@ const addData = (data) => {
         let city = item.location.city.capitalize();
         let emailAddress = item.email; 
         let imgSource = item.picture.medium;
+
+        //more data for modal window
+        let phoneNumber = item.phone;
+        let address = `${item.location.street.capitalize()} ${city}, ${item.location.state.capitalize()} ${item.location.postcode}`;
+        let dob = reverseString( `${item.dob.date.slice(0, 10).slice(-8).replace(/-/g, "/")}`);
+        let birthday = `Birthday:${dob}`
+        console.log(address)
 
 
         //create elements to be added to page
@@ -67,8 +80,10 @@ const fetchData = (url) => {
         .then(dataRcvd => {
             let dataNeeded = dataRcvd.results;
             addData(dataNeeded)
+            return dataNeeded
         })
         .then(res => {
+            console.log(res)
             modalWindowDisplay();
         });
 }
@@ -80,25 +95,30 @@ let modalWindowDisplay = () => {
     //******** THE MODAL WINDOW ***********//
     // Get the modal
     const modal = document.getElementById('myModal');
-    console.log(modal)
+    const modalContentContainer = document.querySelector('.modal-content');
 
     // Get the element that opens the modal
-    let modalOpener = document.querySelector(".employee__card");
-    console.log(modalOpener)
+    let employeesCards = document.querySelectorAll(".employee__card");
+    console.log(employeesCards)
 
     // Get the <span> element that closes the modal
     let modalCloser = document.querySelector(".close");
     console.log(modalCloser)
 
-    // When the user clicks the button, open the modal 
-    modalOpener.onclick = function() {
-    modal.style.display = "block";
-    }
-
+    // When the user clicks on any card, a modal with that card opens
+    employeesCards.forEach((employeeCard) => { 
+            console.log(employeeCard);
+            employeeCard.addEventListener('click', () => {
+                modal.style.display = "block";
+               
+            })
+        }
+    )
+    
     // When the user clicks on <span> (x), close the modal
-    modalCloser.onclick = function() {
+    modalCloser.addEventListener('click', () => {
     modal.style.display = "none";
-    }
+    })
 
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function(event) {
