@@ -12,6 +12,8 @@ let mainContainer = document.getElementById("employee-list-container")
 
 
 const addData = (data) => {
+    const employeeData = {};
+    
     for (const item of data) {
 
         //This first part collects and store data from api in variables
@@ -27,12 +29,19 @@ const addData = (data) => {
         let address = `${item.location.street.capitalize()} ${city}, ${item.location.state.capitalize()} ${item.location.postcode}`;
         let dob = reverseString( `${item.dob.date.slice(0, 10).slice(-8).replace(/-/g, "/")}`);
         let birthday = `Birthday:${dob}`
-        console.log(address)
+        let employeeIDForData = `${firstName}${phoneNumber}${lastName}`
+        //** */console.log(employeeIDForData)
 
+        //create object containing data needed to create cards and modal window
+        employeeData[employeeIDForData] = {fullName, emailAddress, city, phoneNumber, address, birthday, imgSource};
+        //** */console.log(employeeData)
 
         //create elements to be added to page
         let liElement = document.createElement("li");
         liElement.setAttribute("class", "employee__card");
+
+        //setting unique ID for Modal display use
+        liElement.setAttribute("id", employeeIDForData)
     
         let imgElement = document.createElement("img");//element holds employee picture
         imgElement.setAttribute("src", imgSource)
@@ -67,6 +76,7 @@ const addData = (data) => {
 
         mainContainer.appendChild(liElement);
     }
+    return employeeData
 }
 
 
@@ -78,8 +88,8 @@ const fetchData = (url) => {
     fetch(url)
         .then(response => response.json())
         .then(dataRcvd => {
-            addData(dataRcvd.results);
-            createAndDisplayModal();
+            let employeeDataReturned = addData(dataRcvd.results);
+            createAndDisplayModal(employeeDataReturned);
         });
             
 }
@@ -87,25 +97,44 @@ const fetchData = (url) => {
 fetchData('https://randomuser.me/api/?results=12');//invoke fetchData function passing 'url';
 
 
-let createAndDisplayModal = () => {
+let createAndDisplayModal = (data) => {
     //******** THE MODAL WINDOW ***********//
     // Get the modal
+    console.log(data)
     const modal = document.getElementById('myModal');
-    const modalContentContainer = document.querySelector('.modal-content');
 
     // Get the element that opens the modal
     let employeesCards = document.querySelectorAll(".employee__card");
-    console.log(employeesCards)
+    //** */console.log(employeesCards)
 
     // Get the <span> element that closes the modal
+    let closeSpan = document.createElement("span") 
+    closeSpan.setAttribute("class" , "close")
+    closeSpan.textContent = "&times;"
     let modalCloser = document.querySelector(".close");
-    console.log(modalCloser)
+    //** */console.log(modalCloser)
 
     // When the user clicks on any card, a modal with that card opens
     employeesCards.forEach((employeeCard) => { 
-            console.log(employeeCard);
+            //** */console.log(employeeCard);
             employeeCard.addEventListener('click', () => {
                 modal.style.display = "block";
+                for (let item in data) {
+                    if ( item === employeeCard.getAttribute("id")) { //check which card was clicked
+                        let individualEmployeeData = data[item]
+                        console.log(individualEmployeeData.fullName);
+
+                        //create contents to be added to modalContentContainer
+                        let modalContent = document.createElement("div");
+                        modalContent.setAttribute("class", "centered modal-content")
+
+                        if(modal.childElementCount) { //check and remove any previous modal content
+                            modal.removechild
+                        } else {
+                            modal.appendChild(modalContent)
+                        }
+                    }
+                }
                
             })
         }
