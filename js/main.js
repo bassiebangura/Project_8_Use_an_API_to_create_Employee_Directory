@@ -78,20 +78,16 @@ const fetchData = (url) => {
     fetch(url)
         .then(response => response.json())
         .then(dataRcvd => {
-            let dataNeeded = dataRcvd.results;
-            addData(dataNeeded)
-            return dataNeeded
-        })
-        .then(res => {
-            console.log(res)
-            modalWindowDisplay();
+            addData(dataRcvd.results);
+            createAndDisplayModal();
         });
+            
 }
 
 fetchData('https://randomuser.me/api/?results=12');//invoke fetchData function passing 'url';
 
 
-let modalWindowDisplay = () => {
+let createAndDisplayModal = () => {
     //******** THE MODAL WINDOW ***********//
     // Get the modal
     const modal = document.getElementById('myModal');
