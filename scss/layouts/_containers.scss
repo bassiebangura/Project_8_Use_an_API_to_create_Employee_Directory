@@ -2,6 +2,7 @@
     background-color: #eee;
     margin: 0 auto 0 auto;
     width: 100%;
+    min-height: 100vh;
     /** Media Query for Desktop View ***/
     @include mq($md) {
         width: 95%;

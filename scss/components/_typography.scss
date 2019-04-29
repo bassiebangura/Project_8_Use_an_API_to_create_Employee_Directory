@@ -1,12 +1,35 @@
 
 .employee__card__details__email {
-   font-size: 13px;
+   //font-size: 1.2em;
+   @include mq($md) {
+      font-size: 13px;
+   }
+ 
 }
 
 .employee__card__details__name {
-   font-size: 1em;
+   //font-size: 1.4em;
+   font-weight: bold;
+   @include mq($md) {
+      font-size: 1em;
+   }
+  
+   
 }
 
 .employee__card__details__city {
-   font-size: 14px;
+   //font-size: 1.2em;
+   @include mq($md) {
+      font-size: 14px;
+   }
+   
+}
+
+#fullNameForModal {
+   font-size: 1em;
+   font-weight: bold;
+}
+
+#emailAddressForModal {
+   font-size: 13px;
 }

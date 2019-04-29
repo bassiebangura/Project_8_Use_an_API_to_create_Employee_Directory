@@ -133,17 +133,19 @@ let createAndDisplayModal = (data) => {
                         
                         //img element
                         let imgModalElement = document.createElement("img");
-                        imgModalElement.setAttribute("class", "addedElement img--avatar");
+                        imgModalElement.setAttribute("class", "addedElement img--avatar img--avatar__modal");
                         imgModalElement.setAttribute("src", individualEmployeeData.imgSource);
 
                         //fullname element
                         let fullNameModalElement = document.createElement("P");
                         fullNameModalElement.setAttribute("class", "addedElement");
+                        fullNameModalElement.setAttribute("id", "fullNameForModal");
                         fullNameModalElement.textContent = individualEmployeeData.fullName;
 
                         //email address
                         let emailAddressModalElement = document.createElement("P");
                         emailAddressModalElement.setAttribute("class", "addedElement");
+                        emailAddressModalElement.setAttribute("id", "emailAddressForModal");
                         emailAddressModalElement.textContent = individualEmployeeData.emailAddress;
 
                         //city

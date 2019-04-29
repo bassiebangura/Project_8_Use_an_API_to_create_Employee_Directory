@@ -1,12 +1,26 @@
 
 .img--avatar {
-    width: 60px;
-    height: 60px;
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
 
-    @include mq($xs) {
+    @include mq($md) {
         height: 90px;
         width: 120px;
+    }
+}
+
+.img--avatar__modal {
+    height: 125px;
+    width: 125px;
+
+}
+
+.employee__card img {
+    margin:0 auto 0.9em auto;
+
+    @include mq($md) {
+        margin: 0;
     }
 }
 

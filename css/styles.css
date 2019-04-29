@@ -413,10 +413,20 @@ ul {
   text-align: center;
 }
 
+html,
+body {
+  height: 100%;
+}
+
+body {
+  min-height: 100vh;
+}
+
 .container {
   background-color: #eee;
   margin: 0 auto 0 auto;
   width: 100%;
+  min-height: 100vh;
   /** Media Query for Desktop View ***/
 }
 
@@ -446,15 +456,15 @@ header p {
   display: grid;
   -ms-grid-columns: minmax(0, 1fr);
       grid-template-columns: minmax(0, 1fr);
-  -ms-grid-rows: minmax(40px, auto);
-      grid-template-rows: minmax(40px, auto);
-  grid-gap: 1.2em 1.2em;
-  padding: 0 1em 1em 1em;
-  width: 100%;
+  -ms-grid-rows: minmax(0, auto);
+      grid-template-rows: minmax(0, auto);
+  grid-gap: 1.9em 1.9em;
+  padding: 0.5em 1em 1em 1em;
+  width: 98%;
   margin: 0 auto 0 auto;
 }
 
-@media (min-width: 620px) {
+@media (min-width: 589px) {
   .employee-directory-wrapper {
     -ms-grid-columns: minmax(0, 1fr) minmax(0, 1fr);
         grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -463,7 +473,7 @@ header p {
   }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 898px) {
   .employee-directory-wrapper {
     -ms-grid-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
         grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
@@ -474,24 +484,55 @@ header p {
 
 /**** Employees Directory ****/
 .employee__card {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  -webkit-box-pack: left;
-      -ms-flex-pack: left;
-          justify-content: left;
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
   border: 1.2px solid #aaa;
+  color: #555;
   border-radius: 5px;
   background-color: #fff;
   padding: 0.9em;
   width: 100%;
+  text-align: center;
+  -webkit-transition: ease-in-out;
+  transition: ease-in-out;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+
+@media (min-width: 1024px) {
+  .employee__card {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: left;
+        -ms-flex-pack: left;
+            justify-content: left;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+  }
+}
+
+.employee__card:hover {
+  color: #333;
+  text-decoration: none;
+  -webkit-box-shadow: 0 4px 8px 5px rgba(0, 0, 0, 0.4);
+          box-shadow: 0 4px 8px 5px rgba(0, 0, 0, 0.4);
+  -webkit-transform: scale(1.059);
+          transform: scale(1.059);
 }
 
 .employee__card__details {
@@ -503,8 +544,10 @@ header p {
   margin: 0 0.5em;
 }
 
-.employee__card__details__name {
-  font-weight: bold;
+.employee__card__details__name,
+.employee__card__details__number,
+.employee__card__details__city {
+  padding: 0.4em 0 0.4em 0;
 }
 
 /*********************************
@@ -531,10 +574,14 @@ header p {
 .modal-content-container {
   background-color: #fefefe;
   margin: auto;
-  padding: 20px;
+  padding: 1.5em;
   border: 1px solid #888;
   border-radius: 10px;
   width: 60%;
+  min-width: 290px;
+  max-width: 360px;
+  -webkit-box-shadow: 0 4px 8px 2px rgba(0, 0, 0, 0.4);
+          box-shadow: 0 4px 8px 2px rgba(0, 0, 0, 0.4);
 }
 
 /*** The Close Button ***/
@@ -556,29 +603,67 @@ hr.addedElement {
   border-bottom: solid 0.005px #aaa;
 }
 
+#fullNameForModal {
+  font-size: bold;
+}
+
 /*** Defines name of grid areas within thee nav ***/
-.employee__card__details__email {
-  font-size: 13px;
+@media (min-width: 1024px) {
+  .employee__card__details__email {
+    font-size: 13px;
+  }
 }
 
 .employee__card__details__name {
-  font-size: 1em;
+  font-weight: bold;
 }
 
-.employee__card__details__city {
-  font-size: 14px;
+@media (min-width: 1024px) {
+  .employee__card__details__name {
+    font-size: 1em;
+  }
+}
+
+@media (min-width: 1024px) {
+  .employee__card__details__city {
+    font-size: 14px;
+  }
+}
+
+#fullNameForModal {
+  font-size: 1em;
+  font-weight: bold;
+}
+
+#emailAddressForModal {
+  font-size: 13px;
 }
 
 .img--avatar {
-  width: 60px;
-  height: 60px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
 }
 
-@media (min-width: 620px) {
+@media (min-width: 1024px) {
   .img--avatar {
     height: 90px;
     width: 120px;
+  }
+}
+
+.img--avatar__modal {
+  height: 125px;
+  width: 125px;
+}
+
+.employee__card img {
+  margin: 0 auto 0.9em auto;
+}
+
+@media (min-width: 1024px) {
+  .employee__card img {
+    margin: 0;
   }
 }
 
