@@ -94,6 +94,7 @@ const fetchData = (url) => {
             
 }
 
+
 fetchData('https://randomuser.me/api/?results=12');//invoke fetchData function passing 'url';
 
 
@@ -102,38 +103,83 @@ let createAndDisplayModal = (data) => {
     // Get the modal
     console.log(data)
     const modal = document.getElementById('myModal');
+    const modalContentContainer = document.querySelector(".modal-content-container");
 
     // Get the element that opens the modal
     let employeesCards = document.querySelectorAll(".employee__card");
     //** */console.log(employeesCards)
 
-    // Get the <span> element that closes the modal
-    let closeSpan = document.createElement("span") 
-    closeSpan.setAttribute("class" , "close")
-    closeSpan.textContent = "&times;"
-    let modalCloser = document.querySelector(".close");
-    //** */console.log(modalCloser)
+   //Get close span;
+   let closeSpan = document.querySelector(".close")
 
     // When the user clicks on any card, a modal with that card opens
     employeesCards.forEach((employeeCard) => { 
             //** */console.log(employeeCard);
-            employeeCard.addEventListener('click', () => {
+            employeeCard.addEventListener('click', (e) => {
                 modal.style.display = "block";
+                let listenerTarget = e.currentTarget
+                let employeeCardElementId = listenerTarget.id;
+                //remove elements
+                document.querySelectorAll(".addedElement").forEach(e => {
+                    e.parentNode.removeChild(e)
+                })
+                    
+                //console.log(employeeCardElementId);
+                //console.log(e.currentTarget)
+
                 for (let item in data) {
-                    if ( item === employeeCard.getAttribute("id")) { //check which card was clicked
+                    if ( item === employeeCardElementId) { //check which card was clicked
                         let individualEmployeeData = data[item]
-                        console.log(individualEmployeeData.fullName);
+                        
+                        //img element
+                        let imgModalElement = document.createElement("img");
+                        imgModalElement.setAttribute("class", "addedElement img--avatar");
+                        imgModalElement.setAttribute("src", individualEmployeeData.imgSource);
 
-                        //create contents to be added to modalContentContainer
-                        let modalContent = document.createElement("div");
-                        modalContent.setAttribute("class", "centered modal-content")
+                        //fullname element
+                        let fullNameModalElement = document.createElement("P");
+                        fullNameModalElement.setAttribute("class", "addedElement");
+                        fullNameModalElement.textContent = individualEmployeeData.fullName;
 
-                        if(modal.childElementCount) { //check and remove any previous modal content
-                            modal.removechild
-                        } else {
-                            modal.appendChild(modalContent)
-                        }
+                        //email address
+                        let emailAddressModalElement = document.createElement("P");
+                        emailAddressModalElement.setAttribute("class", "addedElement");
+                        emailAddressModalElement.textContent = individualEmployeeData.emailAddress;
+
+                        //city
+                        let cityModalElement = document.createElement("P");
+                        cityModalElement.setAttribute("class", "addedElement");
+                        cityModalElement.textContent = individualEmployeeData.city;
+
+                        //hr
+                        let hrModalElement = document.createElement("hr");
+                        hrModalElement.setAttribute("class", "addedElement");
+
+                        //phone number
+                        let phoneNumberModalElement = document.createElement("P");
+                        phoneNumberModalElement.setAttribute("class", "addedElement");
+                        phoneNumberModalElement.textContent = individualEmployeeData.phoneNumber;
+                        
+                        //address
+                        let addressModalElement = document.createElement("P");
+                        addressModalElement.setAttribute("class", "addedElement");
+                        addressModalElement.textContent = individualEmployeeData.address;
+
+                        //birthday
+                        let birthdayModalElement = document.createElement("P");
+                        birthdayModalElement.setAttribute("class", "addedElement");
+                        birthdayModalElement.textContent = individualEmployeeData.birthday;
+
+                        modalContentContainer.appendChild(imgModalElement);
+                        modalContentContainer.appendChild(fullNameModalElement);
+                        modalContentContainer.appendChild(emailAddressModalElement);
+                        modalContentContainer.appendChild(cityModalElement);
+                        modalContentContainer.appendChild(hrModalElement);
+                        modalContentContainer.appendChild(phoneNumberModalElement);
+                        modalContentContainer.appendChild(addressModalElement);
+                        modalContentContainer.appendChild(birthdayModalElement);  
                     }
+                      
                 }
                
             })
@@ -141,14 +187,15 @@ let createAndDisplayModal = (data) => {
     )
     
     // When the user clicks on <span> (x), close the modal
+    let modalCloser = document.querySelector(".close");
     modalCloser.addEventListener('click', () => {
     modal.style.display = "none";
-    })
+    }) 
 
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
+        if (event.target == modal) {
+            modal.style.display = "none";
         }
     }
 }

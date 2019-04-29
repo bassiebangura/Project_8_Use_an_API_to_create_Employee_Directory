@@ -528,12 +528,13 @@ header p {
 }
 
 /*** Modal Content ***/
-.modal-content {
+.modal-content-container {
   background-color: #fefefe;
   margin: auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 80%;
+  border-radius: 10px;
+  width: 60%;
 }
 
 /*** The Close Button ***/
@@ -549,6 +550,10 @@ header p {
   color: #000;
   text-decoration: none;
   cursor: pointer;
+}
+
+hr.addedElement {
+  border-bottom: solid 0.005px #aaa;
 }
 
 /*** Defines name of grid areas within thee nav ***/
