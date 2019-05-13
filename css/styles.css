@@ -580,8 +580,8 @@ header p {
   width: 60%;
   min-width: 290px;
   max-width: 360px;
-  -webkit-box-shadow: 0 4px 8px 2px rgba(0, 0, 0, 0.4);
-          box-shadow: 0 4px 8px 2px rgba(0, 0, 0, 0.4);
+  -webkit-box-shadow: 0 4px 8px 2px rgba(0, 0, 0, 0.9);
+          box-shadow: 0 4px 8px 2px rgba(0, 0, 0, 0.9);
 }
 
 /*** The Close Button ***/
