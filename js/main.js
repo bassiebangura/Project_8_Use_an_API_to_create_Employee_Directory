@@ -1,33 +1,26 @@
-/**** creates a capitalize method on javascript prototype ****/
-String.prototype.capitalize = function() {
-  return this.replace(/(?:^|\s)\S/g, function(a) {
-    return a.toUpperCase();
-  });
+/**********  Helper Function ************/
+const capitalize = s => {
+  //capitalize a string passed to it
+  if (typeof s !== "string") return "";
+  return `${s.charAt(0).toUpperCase()}${s.slice(1)}`;
 };
 
-// /**********  Helper Function ************/
-// const capitalize = s => {
-//   //capitalize a string passed to it
-//   if (typeof s !== "string") return "";
-//   return `${s.charAt(0).toUpperCase()}${s.slice(1)}`;
-// };
+let formatDOB = dob => {
+  //function returns DOB in format needed for display
+  let { date } = dob;
+  let dateOfBirth = new Date(date);
+  let day = dateOfBirth.getDate();
+  let month = dateOfBirth.getMonth() + 1;
+  let year = dateOfBirth.getYear();
+  return `${month}-${day}-${year}`;
+};
 
-// let formatDOB = dob => {
-//   //function returns DOB in format needed for display
-//   let { date } = dob;
-//   let dateOfBirth = new Date(date);
-//   let day = dateOfBirth.getDate();
-//   let month = dateOfBirth.getMonth() + 1;
-//   let year = dateOfBirth.getYear();
-//   return `${month}-${day}-${year}`;
-// };
-
-//reverse string helper function
-const reverseString = str =>
-  str
-    .split("")
-    .reverse()
-    .join("");
+// //reverse string helper function
+// const reverseString = str =>
+//   str
+//     .split("")
+//     .reverse()
+//     .join("");
 
 let mainContainer = document.getElementById("employee-list-container");
 
@@ -36,24 +29,21 @@ const addData = data => {
 
   for (const item of data) {
     //This first part collects and store data from api in variables
-    let firstName = item.name.first.capitalize();
-    let lastName = item.name.last.capitalize();
+    let firstName = capitalize(item.name.first);
+    let lastName = capitalize(item.name.last);
     let fullName = `${firstName} ${lastName}`;
-    let city = item.location.city.capitalize();
+    let city = capitalize(item.location.city);
     let emailAddress = item.email;
     let imgSource = item.picture.medium;
 
     //more data for modal window
     let phoneNumber = item.phone;
-    let address = `${item.location.street.capitalize()} ${city}, ${item.location.state.capitalize()} ${
-      item.location.postcode
-    }`;
-    let dob = reverseString(
-      `${item.dob.date
-        .slice(0, 10)
-        .slice(-8)
-        .replace(/-/g, "/")}`
-    );
+    let address = `
+                    ${capitalize(item.location.street)} 
+                    ${city}, 
+                    ${capitalize(item.location.state)} 
+                    ${item.location.postcode}`;
+    let dob = formatDOB(item.dob);
     let birthday = `Birthday:${dob}`;
     let employeeIDForData = `${firstName}${phoneNumber}${lastName}`;
     //** */console.log(employeeIDForData)
@@ -133,7 +123,7 @@ fetchData("https://randomuser.me/api/?results=12"); //invoke fetchData function 
 let createAndDisplayModal = data => {
   //******** THE MODAL WINDOW ***********//
   // Get the modal
- 
+
   const modal = document.getElementById("myModal");
   const modalContentContainer = document.querySelector(
     ".modal-content-container"
@@ -164,7 +154,7 @@ let createAndDisplayModal = data => {
       for (let item in data) {
         if (item === employeeCardElementId) {
           //check which card was clicked
-        
+
           let individualEmployeeData = data[item];
 
           //img element
