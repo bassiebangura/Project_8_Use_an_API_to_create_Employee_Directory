@@ -29,8 +29,37 @@ let formatEmployeeData = data => {
     let emailAddress = item.email;
     let imgSource = item.picture.medium;
 
+    //more data for modal window
+    let phoneNumber = item.phone;
+    let address = `
+                      ${capitalize(item.location.street)}
+                      ${city},
+                      ${capitalize(item.location.state)}
+                      ${item.location.postcode}`;
     let dob = formatDOB(item.dob);
-    arrayOfEmployeeData.push({ fullName, city, emailAddress, imgSource, dob });
+    let birthday = `Birthday:${dob}`;
+    let employeeIDForEventListener = `${firstName}${phoneNumber}${lastName}`;
+
+    // //create object containing data needed to create cards and modal window
+    // objectOfEmployeeData[employeeIDForData] = {
+    //   fullName,
+    //   emailAddress,
+    //   city,
+    //   phoneNumber,
+    //   address,
+    //   birthday,
+    //   imgSource
+    // };
+    arrayOfEmployeeData.push({
+      employeeIDForEventListener,
+      fullName,
+      city,
+      emailAddress,
+      imgSource,
+      birthday,
+      address,
+      phoneNumber
+    });
   }
   return arrayOfEmployeeData;
 };
@@ -117,6 +146,21 @@ employeeCardsParentWrapper.innerHTML = "";
 //   }
 //   return employeeData;
 // };
+//Display employee card in  employee directory
+let displayEmployeeCard = data => {
+  //receives an array of data and use it to display employee card
+  data.forEach(employeeCard => {
+    let { fullName, city, emailAddress, imgSource } = employeeCard;
+    employeeCardsParentWrapper.innerHTML += `<article class="employee__card">
+           <img src=${imgSource} alt="employee's profile picture" class="img--avatar">
+              <div class="employee__card__details">
+                <p class="employee__card__details__name">${fullName}</p>
+                <p class="employee__card__details__email">${emailAddress}</p>
+                <p class="employee__card__details__city">${city}</p>
+              </div>
+      </article>`;
+  });
+};
 
 //create a function to call the fetch api
 let fetchData = url => {
@@ -125,127 +169,117 @@ let fetchData = url => {
     .then(res => res.results)
     .then(res => formatEmployeeData(res))
     .then(res => {
-      res.forEach(employeeCard => {
-        let { fullName, city, emailAddress, imgSource, dob } = employeeCard;
-        employeeCardsParentWrapper.innerHTML += `<article class="employee__card">
-           <img src=${imgSource} alt="employee's profile picture" class="img--avatar">
-              <div class="employee__card__details">
-                <p class="employee__card__details__name">${fullName}</p>
-                <p class="employee__card__details__email">${emailAddress}</p>
-                <p class="employee__card__details__city">${city}</p>
-              </div>
-      </article>`;
-      });
+      displayEmployeeCard(res)
     });
 };
 
 fetchData("https://randomuser.me/api/?results=20");
 
-// let createAndDisplayModal = data => {
-//   //******** THE MODAL WINDOW ***********//
-//   // Get the modal
-//   console.log(data);
-//   const modal = document.getElementById("myModal");
-//   const modalContentContainer = document.querySelector(
-//     ".modal-content-container"
-//   );
+let createAndDisplayModal = data => {
+  //******** THE MODAL WINDOW ***********//
+  // Get the modal
+  console.log(data);
+  const modal = document.getElementById("myModal");
+  const modalContentContainer = document.querySelector(
+    ".modal-content-container"
+  );
 
-//   // Get the element that opens the modal
-//   let employeesCards = document.querySelectorAll(".employee__card");
-//   //** */console.log(employeesCards)
+  // Get the element that opens the modal
+  let employeesCards = document.querySelectorAll(".employee__card");
+  //** */console.log(employeesCards)
 
-//   //Get close span;
-//   let closeSpan = document.querySelector(".close");
+  //Get close span;
+  let closeSpan = document.querySelector(".close");
 
-//   // When the user clicks on any card, a modal with that card opens
-//   employeesCards.forEach(employeeCard => {
-//     //** */console.log(employeeCard);
-//     employeeCard.addEventListener("click", e => {
-//       modal.style.display = "block";
-//       let listenerTarget = e.currentTarget;
-//       let employeeCardElementId = listenerTarget.id;
-//       //remove elements
-//       document.querySelectorAll(".addedElement").forEach(e => {
-//         e.parentNode.removeChild(e);
-//       });
+  // When the user clicks on any card, a modal with that card opens
+  employeesCards.forEach(employeeCard => {
+    //** */console.log(employeeCard);
+    employeeCard.addEventListener("click", e => {
+      modal.style.display = "block";
+      let listenerTarget = e.currentTarget;
+      let employeeCardElementId = listenerTarget.id;
+      //remove elements
+      document.querySelectorAll(".addedElement").forEach(e => {
+        e.parentNode.removeChild(e);
+      });
 
-//       //console.log(employeeCardElementId);
-//       //console.log(e.currentTarget)
+      //console.log(employeeCardElementId);
+      //console.log(e.currentTarget)
 
-//       for (let item in data) {
-//         if (item === employeeCardElementId) {
-//           //check which card was clicked
-//           let individualEmployeeData = data[item];
+      for (let item in data) {
+        if (item === employeeCardElementId) {
+          //check which card was clicked
+          let individualEmployeeData = data[item];
 
-//           //img element
-//           let imgModalElement = document.createElement("img");
-//           imgModalElement.setAttribute(
-//             "class",
-//             "addedElement img--avatar img--avatar__modal"
-//           );
-//           imgModalElement.setAttribute("src", individualEmployeeData.imgSource);
+          //img element
+          let imgModalElement = document.createElement("img");
+          imgModalElement.setAttribute(
+            "class",
+            "addedElement img--avatar img--avatar__modal"
+          );
+          imgModalElement.setAttribute("src", individualEmployeeData.imgSource);
 
-//           //fullname element
-//           let fullNameModalElement = document.createElement("P");
-//           fullNameModalElement.setAttribute("class", "addedElement");
-//           fullNameModalElement.setAttribute("id", "fullNameForModal");
-//           fullNameModalElement.textContent = individualEmployeeData.fullName;
+          //fullname element
+          let fullNameModalElement = document.createElement("P");
+          fullNameModalElement.setAttribute("class", "addedElement");
+          fullNameModalElement.setAttribute("id", "fullNameForModal");
+          fullNameModalElement.textContent = individualEmployeeData.fullName;
 
-//           //email address
-//           let emailAddressModalElement = document.createElement("P");
-//           emailAddressModalElement.setAttribute("class", "addedElement");
-//           emailAddressModalElement.setAttribute("id", "emailAddressForModal");
-//           emailAddressModalElement.textContent =
-//             individualEmployeeData.emailAddress;
+          //email address
+          let emailAddressModalElement = document.createElement("P");
+          emailAddressModalElement.setAttribute("class", "addedElement");
+          emailAddressModalElement.setAttribute("id", "emailAddressForModal");
+          emailAddressModalElement.textContent =
+            individualEmployeeData.emailAddress;
 
-//           //city
-//           let cityModalElement = document.createElement("P");
-//           cityModalElement.setAttribute("class", "addedElement");
-//           cityModalElement.textContent = individualEmployeeData.city;
+          //city
+          let cityModalElement = document.createElement("P");
+          cityModalElement.setAttribute("class", "addedElement");
+          cityModalElement.textContent = individualEmployeeData.city;
 
-//           //hr
-//           let hrModalElement = document.createElement("hr");
-//           hrModalElement.setAttribute("class", "addedElement");
+          //hr
+          let hrModalElement = document.createElement("hr");
+          hrModalElement.setAttribute("class", "addedElement");
 
-//           //phone number
-//           let phoneNumberModalElement = document.createElement("P");
-//           phoneNumberModalElement.setAttribute("class", "addedElement");
-//           phoneNumberModalElement.textContent =
-//             individualEmployeeData.phoneNumber;
+          //phone number
+          let phoneNumberModalElement = document.createElement("P");
+          phoneNumberModalElement.setAttribute("class", "addedElement");
+          phoneNumberModalElement.textContent =
+            individualEmployeeData.phoneNumber;
 
-//           //address
-//           let addressModalElement = document.createElement("P");
-//           addressModalElement.setAttribute("class", "addedElement");
-//           addressModalElement.textContent = individualEmployeeData.address;
+          //address
+          let addressModalElement = document.createElement("P");
+          addressModalElement.setAttribute("class", "addedElement");
+          addressModalElement.textContent = individualEmployeeData.address;
 
-//           //birthday
-//           let birthdayModalElement = document.createElement("P");
-//           birthdayModalElement.setAttribute("class", "addedElement");
-//           birthdayModalElement.textContent = individualEmployeeData.birthday;
+          //birthday
+          let birthdayModalElement = document.createElement("P");
+          birthdayModalElement.setAttribute("class", "addedElement");
+          birthdayModalElement.textContent = individualEmployeeData.birthday;
 
-//           modalContentContainer.appendChild(imgModalElement);
-//           modalContentContainer.appendChild(fullNameModalElement);
-//           modalContentContainer.appendChild(emailAddressModalElement);
-//           modalContentContainer.appendChild(cityModalElement);
-//           modalContentContainer.appendChild(hrModalElement);
-//           modalContentContainer.appendChild(phoneNumberModalElement);
-//           modalContentContainer.appendChild(addressModalElement);
-//           modalContentContainer.appendChild(birthdayModalElement);
-//         }
-//       }
-//     });
-//   });
+          modalContentContainer.appendChild(imgModalElement);
+          modalContentContainer.appendChild(fullNameModalElement);
+          modalContentContainer.appendChild(emailAddressModalElement);
+          modalContentContainer.appendChild(cityModalElement);
+          modalContentContainer.appendChild(hrModalElement);
+          modalContentContainer.appendChild(phoneNumberModalElement);
+          modalContentContainer.appendChild(addressModalElement);
+          modalContentContainer.appendChild(birthdayModalElement);
+        }
+      }
+    });
+  });
 
-//   // When the user clicks on <span> (x), close the modal
-//   let modalCloser = document.querySelector(".close");
-//   modalCloser.addEventListener("click", () => {
-//     modal.style.display = "none";
-//   });
+  // When the user clicks on <span> (x), close the modal
+  let modalCloser = document.querySelector(".close");
+  modalCloser.addEventListener("click", () => {
+    modal.style.display = "none";
+  });
 
-//   // When the user clicks anywhere outside of the modal, close it
-//   window.onclick = function(event) {
-//     if (event.target == modal) {
-//       modal.style.display = "none";
-//     }
-//   };
-// };
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  };
+};
