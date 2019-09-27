@@ -150,8 +150,14 @@ employeeCardsParentWrapper.innerHTML = "";
 let displayEmployeeCard = data => {
   //receives an array of data and use it to display employee card
   data.forEach(employeeCard => {
-    let { fullName, city, emailAddress, imgSource } = employeeCard;
-    employeeCardsParentWrapper.innerHTML += `<article class="employee__card">
+    let {
+      employeeIDForEventListener,
+      fullName,
+      city,
+      emailAddress,
+      imgSource
+    } = employeeCard;
+    employeeCardsParentWrapper.innerHTML += `<article id=${employeeIDForEventListener} class="employee__card">
            <img src=${imgSource} alt="employee's profile picture" class="img--avatar">
               <div class="employee__card__details">
                 <p class="employee__card__details__name">${fullName}</p>
@@ -169,21 +175,22 @@ let fetchData = url => {
     .then(res => res.results)
     .then(res => formatEmployeeData(res))
     .then(res => {
-      displayEmployeeCard(res)
+      displayEmployeeCard(res);
+      displayModalWindow(res)
     });
 };
 
 fetchData("https://randomuser.me/api/?results=20");
 
-let createAndDisplayModal = data => {
+let displayModalWindow = data => {
   //******** THE MODAL WINDOW ***********//
   // Get the modal
-  console.log(data);
+  // console.log(data);
   const modal = document.getElementById("myModal");
   const modalContentContainer = document.querySelector(
     ".modal-content-container"
   );
-
+  modalContentContainer.innerHTML = "";
   // Get the element that opens the modal
   let employeesCards = document.querySelectorAll(".employee__card");
   //** */console.log(employeesCards)
@@ -206,67 +213,28 @@ let createAndDisplayModal = data => {
       //console.log(employeeCardElementId);
       //console.log(e.currentTarget)
 
-      for (let item in data) {
-        if (item === employeeCardElementId) {
-          //check which card was clicked
-          let individualEmployeeData = data[item];
-
-          //img element
-          let imgModalElement = document.createElement("img");
-          imgModalElement.setAttribute(
-            "class",
-            "addedElement img--avatar img--avatar__modal"
-          );
-          imgModalElement.setAttribute("src", individualEmployeeData.imgSource);
-
-          //fullname element
-          let fullNameModalElement = document.createElement("P");
-          fullNameModalElement.setAttribute("class", "addedElement");
-          fullNameModalElement.setAttribute("id", "fullNameForModal");
-          fullNameModalElement.textContent = individualEmployeeData.fullName;
-
-          //email address
-          let emailAddressModalElement = document.createElement("P");
-          emailAddressModalElement.setAttribute("class", "addedElement");
-          emailAddressModalElement.setAttribute("id", "emailAddressForModal");
-          emailAddressModalElement.textContent =
-            individualEmployeeData.emailAddress;
-
-          //city
-          let cityModalElement = document.createElement("P");
-          cityModalElement.setAttribute("class", "addedElement");
-          cityModalElement.textContent = individualEmployeeData.city;
-
-          //hr
-          let hrModalElement = document.createElement("hr");
-          hrModalElement.setAttribute("class", "addedElement");
-
-          //phone number
-          let phoneNumberModalElement = document.createElement("P");
-          phoneNumberModalElement.setAttribute("class", "addedElement");
-          phoneNumberModalElement.textContent =
-            individualEmployeeData.phoneNumber;
-
-          //address
-          let addressModalElement = document.createElement("P");
-          addressModalElement.setAttribute("class", "addedElement");
-          addressModalElement.textContent = individualEmployeeData.address;
-
-          //birthday
-          let birthdayModalElement = document.createElement("P");
-          birthdayModalElement.setAttribute("class", "addedElement");
-          birthdayModalElement.textContent = individualEmployeeData.birthday;
-
-          modalContentContainer.appendChild(imgModalElement);
-          modalContentContainer.appendChild(fullNameModalElement);
-          modalContentContainer.appendChild(emailAddressModalElement);
-          modalContentContainer.appendChild(cityModalElement);
-          modalContentContainer.appendChild(hrModalElement);
-          modalContentContainer.appendChild(phoneNumberModalElement);
-          modalContentContainer.appendChild(addressModalElement);
-          modalContentContainer.appendChild(birthdayModalElement);
+      data.forEach(employeeCard => {
+        let {
+          employeeIDForEventListener,
+          imgSource,
+          fullName,
+          city,
+          emailAddress,
+          phoneNumber,
+          address,
+          birthday
+        } = employeeCard;
+        if (employeeIDForEventListener === employeeCardElementId) {
+          modalContentContainer.innerHTML += `<article  class="employee__card">
+           <img src=${imgSource} alt="employee's profile picture" class="img--avatar">
+              <div class="employee__card__details">
+                <p class="employee__card__details__name">${fullName}</p>
+                <p class="employee__card__details__email">${emailAddress}</p>
+                <p class="employee__card__details__city">${city}</p>
+              </div>
+      </article>`;
         }
-      }
+      });
     });
   });
 
