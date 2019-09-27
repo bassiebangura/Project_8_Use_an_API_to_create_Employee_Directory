@@ -176,7 +176,7 @@ let fetchData = url => {
     .then(res => formatEmployeeData(res))
     .then(res => {
       displayEmployeeCard(res);
-      displayModalWindow(res)
+      displayModalWindow(res);
     });
 };
 
@@ -227,11 +227,14 @@ let displayModalWindow = data => {
         if (employeeIDForEventListener === employeeCardElementId) {
           modalContentContainer.innerHTML += `<article  class="employee__card">
            <img src=${imgSource} alt="employee's profile picture" class="img--avatar">
-              <div class="employee__card__details">
+           <div class="employee__card__details">
                 <p class="employee__card__details__name">${fullName}</p>
                 <p class="employee__card__details__email">${emailAddress}</p>
-                <p class="employee__card__details__city">${city}</p>
-              </div>
+                <br class="addedElement/>
+                <p class="employee__card__details__phoneNumber">${phoneNumber}</p>
+                <p class="employee__card__details__address">${address}</p>
+                <p class="employee__card__details__birthday">${birthday}</p>
+           </div> 
       </article>`;
         }
       });
