@@ -15,7 +15,6 @@ let formatDOB = dob => {
   return `${month}-${day}-${year}`;
 };
 
-let url = "https://randomuser.me/api/?results=25";
 // let mainContainer = document.getElementById("employee-cards-parent-wrapper");
 //////////////////////////just added
 let formatEmployeeData = data => {
@@ -23,10 +22,10 @@ let formatEmployeeData = data => {
   //formats data and put them in an array
   let arrayOfEmployeeData = [];
   for (item of data) {
-    let firstName = item.name.first;
-    let lastName = item.name.last;
+    let firstName = capitalize(item.name.first);
+    let lastName = capitalize(item.name.last);
     let fullName = `${firstName} ${lastName}`;
-    let city = item.location.city;
+    let city = capitalize(item.location.city);
     let emailAddress = item.email;
     let imgSource = item.picture.medium;
 
@@ -120,24 +119,27 @@ employeeCardsParentWrapper.innerHTML = "";
 // };
 
 //create a function to call the fetch api
-fetch(url)
-  .then(res => res.json())
-  .then(res => res.results)
-  .then(res => formatEmployeeData(res))
-  .then(res => {
-    res.forEach(employeeCard => {
-      console.log(employeeCard);
-      let { fullName, city, emailAddress, imgSource, dob } = employeeCard;
-      employeeCardsParentWrapper.innerHTML += `<article class="employee__card">
-         <img src=${imgSource} alt="employee's profile picture" class="img--avatar">
-            <div class="employee__card__details">
-              <p class="employee__card__details__name">${fullName}</p>
-              <p class="employee__card__details__email">${emailAddress}</p>
-              <p class="employee__card__details__city">${city}</p>
-            </div>
-    </article>`;
+let fetchData = url => {
+  fetch(url)
+    .then(res => res.json())
+    .then(res => res.results)
+    .then(res => formatEmployeeData(res))
+    .then(res => {
+      res.forEach(employeeCard => {
+        let { fullName, city, emailAddress, imgSource, dob } = employeeCard;
+        employeeCardsParentWrapper.innerHTML += `<article class="employee__card">
+           <img src=${imgSource} alt="employee's profile picture" class="img--avatar">
+              <div class="employee__card__details">
+                <p class="employee__card__details__name">${fullName}</p>
+                <p class="employee__card__details__email">${emailAddress}</p>
+                <p class="employee__card__details__city">${city}</p>
+              </div>
+      </article>`;
+      });
     });
-  });
+};
+
+fetchData("https://randomuser.me/api/?results=20");
 
 // let createAndDisplayModal = data => {
 //   //******** THE MODAL WINDOW ***********//

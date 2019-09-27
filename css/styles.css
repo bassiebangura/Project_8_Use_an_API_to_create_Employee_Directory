@@ -403,11 +403,6 @@ th {
   -o-box-sizing: border-box;
 }
 
-ul {
-  list-style: none;
-  padding: 0;
-}
-
 .centered {
   margin: auto;
   text-align: center;
@@ -542,6 +537,10 @@ header p {
 
 .employee__card__details > * {
   margin: 0 0.5em;
+}
+
+.employee__card_email {
+  width: 100%;
 }
 
 .employee__card__details__name,
