@@ -1,10 +1,10 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>Employee Directory</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
     <div class="container">
@@ -12,8 +12,19 @@
         <p>Awesome Employee Directory</p>
       </header>
       <main>
-        <ul id="employee-list-container" class="employee-directory-wrapper">
-          <!-- ******Below is an example of how generated data from api is implemented with javascript****** --/begin
+        <section class="js-employee-directory-wrapper employee-directory-wrapper employee-list-container">
+          <!-- <article class="employee-card">
+               <img src="https://randomuser.me/api/portraits/med/men/19.jpg" alt="employee's profile picture" class="img--avatar">
+                  <div class="employee-card__details">
+                    <p class="employee-card__details__name">Nuno Jean</p>
+                    <p class="employee-card__details__email">nuno.jean@example.com</p>
+                    <p class="employee-card__details__city">Bellwald</p>
+                    <p class="employee-card__details__birthday"></p>
+                  </div>
+              </article> -->
+        </section>
+        <!-- <ul id="employee-list-container" class="employee-directory-wrapper">
+           ******Below is an example of how generated data from api is implemented with javascript****** --/begin
           <li class="employee__card">
             <img src="https://randomuser.me/api/portraits/med/men/19.jpg" alt="employee's profile picture" class="img--avatar">
             <div class="employee__card__details">
@@ -22,20 +33,24 @@
               <p class="employee__card__details__city">Bellwald</p>
             </div>
           </li>
-          ********* ---/end-->
+          ********* ---/end
           
-        </ul>
+        </ul> -->
+    
       </main>
     </div>
 
     <!---   THE MODAL   -->
-    <div id="myModal" class="modal"><!--Begin-->
+    <div id="myModal" class="modal">
+      <!--Begin-->
       <!-- Modal content -->
       <div class="modal-content-container centered">
         <span class="close">&times;</span>
         <!-- Add item with Javascript-->
-      </div> -->
-    </div><!--End-->
+      </div>
+      -->
+    </div>
+    <!--End-->
     <script src="js/main.js"></script>
   </body>
 </html>

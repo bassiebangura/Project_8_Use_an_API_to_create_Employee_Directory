@@ -1,68 +1,61 @@
 .employee-directory-wrapper {
-    display: grid;
-    grid-template-columns:minmax(0, 1fr);
-    grid-template-rows: minmax(0, auto);
-    grid-gap: 1.9em 1.9em;
-    padding: 0.5em 1em 1em 1em;
-    width: 98%;
-    margin: 0 auto 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: minmax(0, auto);
+  grid-gap: 1.9em 1.9em;
+  padding: 0.5em 1em 1em 1em;
+  width: 98%;
+  margin: 0 auto 0 auto;
 
-    @include mq($xs) {
-        grid-template-columns:minmax(0, 1fr) minmax(0, 1fr);
-        grid-template-rows: minmax(0, auto);   
-    }
- 
-    @include mq($sm) {
-        grid-template-columns:minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
-        grid-template-rows: minmax(0, auto);   
-    }
+  @include mq($xs) {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-rows: minmax(0, auto);
+  }
+
+  @include mq($sm) {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-rows: minmax(0, auto);
+  }
 }
 
- 
 /**** Employees Directory ****/
 
 .employee__card {
-    border: 1.2px solid #aaa;
-    color: #555;
-    border-radius: 5px;
-    background-color: #fff;
-    padding: 0.9em;
-    width: 100%;
-    text-align: center;
-    transition: ease-in-out;
-    @include flexible($direction: column,
-                       $justify-content: center);
+  border: 1.2px solid #aaa;
+  color: #555;
+  border-radius: 5px;
+  background-color: #fff;
+  padding: 0.9em;
+  width: 100%;
+  text-align: center;
+  transition: ease-in-out;
+  @include flexible($direction: column, $justify-content: center);
 
-    @include mq($md) {
-        @include flexible($direction: row,
-        $justify-content: left);
-    }
-    
+  @include mq($md) {
+    @include flexible($direction: row, $justify-content: left);
+  }
 }
 
-
-
 .employee__card:hover {
-    color: #333;
-    text-decoration: none;
-    box-shadow: 0 4px 8px 5px rgba(0, 0, 0, 0.4);
-    transform: scale(1.059)
-    }
-
+  color: #333;
+  text-decoration: none;
+  box-shadow: 0 4px 8px 5px rgba(0, 0, 0, 0.4);
+  transform: scale(1.059);
+}
 
 .employee__card__details {
-    margin:auto 1.5em auto 0.2em;
-    width: 100%;
+  margin: auto 1.5em auto 0.2em;
+  width: 100%;
 }
 
 .employee__card__details > * {
-    margin: 0 0.5em;
+  margin: 0 0.5em;
 }
 
 .employee__card__details__name,
 .employee__card__details__number,
 .employee__card__details__city {
-    padding: 0.4em 0 0.4em 0;
+  padding: 0.4em 0 0.4em 0;
 }
 
 /*********************************
@@ -70,54 +63,50 @@
 **********************************/
 /* The Modal (background) */
 .modal {
-    display: none; 
-    position: fixed;
-    z-index: 1;
-    padding-top: 100px; /* Location of the box */
-    left: 0;
-    top: 0;
-    width: 100%; 
-    height: 100%;
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-  }
-  
-  /*** Modal Content ***/
-  .modal-content-container {
-    background-color: #fefefe;
-    margin: auto;
-    padding: 1.5em;
-    border: 1px solid #888;
-    border-radius: 10px;
-    width: 60%;
-    min-width: 290px;
-    max-width: 360px;
-    box-shadow: 0 4px 8px 2px rgba(0, 0, 0, 0.9);
-  }
-  
-  /*** The Close Button ***/
-  .close {
-    color: #999;
-    float: right;
-    font-size: 1.5em;
-    font-weight: bold;
+  display: none;
+  position: fixed;
+  z-index: 1;
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
 
-  }
-  
-  .close:hover,
-  .close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
-  }
+/*** Modal Content ***/
+.modal-content-container {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 1.5em;
+  border: 1px solid #888;
+  border-radius: 10px;
+  width: 60%;
+  min-width: 290px;
+  max-width: 360px;
+  box-shadow: 0 4px 8px 2px rgba(0, 0, 0, 0.9);
+}
+
+/*** The Close Button ***/
+.close {
+  color: #999;
+  float: right;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
 
 hr.addedElement {
-    border-bottom: solid 0.005px #aaa;
+  border-bottom: solid 0.005px #aaa;
 }
 
 #fullNameForModal {
-    font-size: bold;
+  font-size: bold;
 }
-
-
-
