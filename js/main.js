@@ -1,4 +1,4 @@
-/**********  Helper Function ************/
+/**********  Helper Functions ************/
 const capitalize = s => {
   //capitalize a string passed to it
   if (typeof s !== "string") return "";
@@ -15,8 +15,6 @@ let formatDOB = dob => {
   return `${month}-${day}-${year}`;
 };
 
-// let mainContainer = document.getElementById("employee-cards-parent-wrapper");
-//////////////////////////just added
 let formatEmployeeData = data => {
   //function recieves data from fetch request as parameter
   //formats data and put them in an array
@@ -38,19 +36,8 @@ let formatEmployeeData = data => {
                       ${item.location.postcode}`;
     let dob = formatDOB(item.dob);
     let birthday = `Birthday:${dob}`;
-    let rawID = `${firstName}${phoneNumber}${lastName}`;
+    let rawID = `${emailAddress}`;
     let employeeIDForEventListener = rawID.trim();
-
-    // //create object containing data needed to create cards and modal window
-    // objectOfEmployeeData[employeeIDForData] = {
-    //   fullName,
-    //   emailAddress,
-    //   city,
-    //   phoneNumber,
-    //   address,
-    //   birthday,
-    //   imgSource
-    // };
     arrayOfEmployeeData.push({
       employeeIDForEventListener,
       fullName,
@@ -65,91 +52,12 @@ let formatEmployeeData = data => {
   return arrayOfEmployeeData;
 };
 
-let employeeCardsParentWrapper = document.querySelector(
-  "section.js-employee-directory-wrapper"
-);
-employeeCardsParentWrapper.innerHTML = "";
-// const addData = data => {
-//   const employeeData = {};
-
-//   for (const item of data) {
-//     //This first part collects and store data from api in variables
-//     let firstName = capitalize(item.name.first);
-//     let lastName = capitalize(item.name.last);
-//     let fullName = `${firstName} ${lastName}`;
-//     let city = capitalize(item.location.city);
-//     let emailAddress = item.email;
-//     let imgSource = item.picture.medium;
-
-//     //more data for modal window
-//     let phoneNumber = item.phone;
-//     let address = `
-//                       ${capitalize(item.location.street)}
-//                       ${city},
-//                       ${capitalize(item.location.state)}
-//                       ${item.location.postcode}`;
-//     let dob = formatDOB(item.dob);
-//     let birthday = `Birthday:${dob}`;
-//     let employeeIDForData = `${firstName}${phoneNumber}${lastName}`;
-//     //** */console.log(employeeIDForData)
-
-//     //create object containing data needed to create cards and modal window
-//     employeeData[employeeIDForData] = {
-//       fullName,
-//       emailAddress,
-//       city,
-//       phoneNumber,
-//       address,
-//       birthday,
-//       imgSource
-//     };
-//     //** */console.log(employeeData)
-
-//     //create elements to be added to page
-//     let liElement = document.createElement("li");
-//     liElement.setAttribute("class", "employee__card");
-
-//     //setting unique ID for Modal display use
-//     liElement.setAttribute("id", employeeIDForData);
-
-//     let imgElement = document.createElement("img"); //element holds employee picture
-//     imgElement.setAttribute("src", imgSource);
-//     imgElement.setAttribute("alt", "employee's profile picture");
-//     imgElement.setAttribute("class", "img--avatar");
-
-//     liElement.appendChild(imgElement);
-
-//     let divElement = document.createElement("div");
-//     divElement.setAttribute("class", "employee__card__details");
-
-//     //create the children for the divElement which is going to contain employee details
-//     let employeeName = document.createElement("p");
-//     employeeName.textContent = fullName;
-//     employeeName.setAttribute("class", "employee__card__details__name");
-
-//     let employeeEmail = document.createElement("p");
-//     employeeEmail.textContent = emailAddress;
-//     employeeEmail.setAttribute("class", "employee__card__details__email");
-
-//     let employeeCity = document.createElement("p");
-//     employeeCity.textContent = city;
-//     employeeCity.setAttribute("class", "employee__card__details__city");
-
-//     //Add the created children to the divElement
-//     divElement.appendChild(employeeName);
-//     divElement.appendChild(employeeEmail);
-//     divElement.appendChild(employeeCity);
-
-//     //Appends the divElement to the li element after the imgElement
-//     liElement.appendChild(divElement);
-
-//     mainContainer.appendChild(liElement);
-//   }
-//   return employeeData;
-// };
 //Display employee card in  employee directory
 let displayEmployeeCard = data => {
   //receives an array of data and use it to display employee card
+  let employeeCardsParentWrapper = document.querySelector(
+    "section.js-employee-directory-wrapper"
+  ); //get parent wrapper
   data.forEach(employeeCard => {
     let {
       employeeIDForEventListener,
@@ -169,24 +77,12 @@ let displayEmployeeCard = data => {
   });
 };
 
-//create a function to call the fetch api
-let fetchData = url => {
-  fetch(url)
-    .then(res => res.json())
-    .then(res => res.results)
-    .then(res => formatEmployeeData(res))
-    .then(res => {
-      displayEmployeeCard(res);
-      displayModalWindow(res);
-    });
-};
-
-fetchData("https://randomuser.me/api/?results=20");
-
-let displayModalWindow = data => {
-  //******** THE MODAL WINDOW ***********//
-  // Get the modal
-  // console.log(data);
+let removeAndAddContentToModalWindow = (listOfEmployeeCards, data) => {
+  //Takes list of elements and data to display as paras
+  //opens modal window
+  //removes previous children of modal element
+  //adds new children using data
+  //children added depends on the article that was clicked
 
   const modalContentContainer = document.querySelector(
     ".modal-content-container"
@@ -194,41 +90,34 @@ let displayModalWindow = data => {
 
   let intialContent = modalContentContainer.innerHTML;
   modalContentContainer.innerHTML = intialContent;
-  //console.log(intialContent);
-  // Get the element that opens the modal
-  let employeesCards = document.querySelectorAll(".js-employee__card");
-  //** */console.log(employeesCards)
 
-  // When the user clicks on any card, a modal with that card opens
-  employeesCards.forEach(employeeCard => {
-    //** */console.log(employeeCard);
+  const modal = document.getElementById("myModal");
+  // When the user clicks on any card, a modal with that employee card info opens
+  listOfEmployeeCards.forEach(employeeCard => {
     employeeCard.addEventListener("click", e => {
       modal.style.display = "block";
       let listenerTarget = e.currentTarget;
       let employeeCardElementId = listenerTarget.id;
-      //remove elements
+      //remove old elements
       document.querySelectorAll(".addedElement").forEach(e => {
         e.parentNode.removeChild(e);
       });
-
-      //console.log(employeeCardElementId);
-      //console.log(e.currentTarget)
 
       data.forEach(employeeCard => {
         let {
           employeeIDForEventListener,
           imgSource,
           fullName,
-          city,
           emailAddress,
           phoneNumber,
           address,
           birthday
         } = employeeCard;
+
         if (employeeIDForEventListener === employeeCardElementId) {
           modalContentContainer.innerHTML += `<article  class="addedElement">
            <img src=${imgSource} alt="employee's profile picture" class="img--avatar">
-           <div class="employee__card__details addedElement">
+           <div class="employee__card__details">
                 <p class="employee__card__details__name">${fullName}</p>
                 <p class="employee__card__details__email">${emailAddress}</p>
                 <hr class="horizontal-line"/>
@@ -240,13 +129,19 @@ let displayModalWindow = data => {
         }
       });
     });
-  });
+  }); //foreach ends
+};
 
-  // When the user clicks on <span> (x), close the modal
+let displayModalWindow = data => {
+  // Get a list of employeecard elements
+  let employeesCards = document.querySelectorAll(".js-employee__card");
+
+  removeAndAddContentToModalWindow(employeesCards, data);
+
+  /********** CLOSE MODAL WINDOW ***************/
   const modal = document.getElementById("myModal");
-  let modalCloser = document.getElementsByClassName("close")[0];
-  
   modal.addEventListener("click", e => {
+    // When the user clicks anywhere on modal, it closes modal window
     modal.style.display = "none";
   });
 
@@ -257,3 +152,17 @@ let displayModalWindow = data => {
     }
   };
 };
+
+let fetchData = url => {
+  //fetch data and call other funtctions to display data
+  fetch(url)
+    .then(res => res.json())
+    .then(res => res.results)
+    .then(res => formatEmployeeData(res))
+    .then(res => {
+      displayEmployeeCard(res);
+      displayModalWindow(res);
+    });
+};
+
+fetchData("https://randomuser.me/api/?results=20");

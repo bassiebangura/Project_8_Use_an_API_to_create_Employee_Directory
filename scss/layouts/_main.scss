@@ -91,9 +91,14 @@
   box-shadow: 0 4px 8px 2px rgba(0, 0, 0, 0.9);
 }
 
-.addedElement.employee__card__details__email {
-  margin-bottom: 1.7em;
+.addedElement p.employee__card__details__email {
+  margin-bottom: 0.7em;
 }
+
+.addedElement p.employee__card__details__phoneNumber {
+  margin-top: 0.7em;
+}
+
 /*** The Close Button ***/
 .close {
   color: #999;
