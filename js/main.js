@@ -38,7 +38,8 @@ let formatEmployeeData = data => {
                       ${item.location.postcode}`;
     let dob = formatDOB(item.dob);
     let birthday = `Birthday:${dob}`;
-    let employeeIDForEventListener = `${firstName}${phoneNumber}${lastName}`;
+    let rawID = `${firstName}${phoneNumber}${lastName}`;
+    let employeeIDForEventListener = rawID.trim();
 
     // //create object containing data needed to create cards and modal window
     // objectOfEmployeeData[employeeIDForData] = {
@@ -157,7 +158,7 @@ let displayEmployeeCard = data => {
       emailAddress,
       imgSource
     } = employeeCard;
-    employeeCardsParentWrapper.innerHTML += `<article id=${employeeIDForEventListener} class="employee__card">
+    employeeCardsParentWrapper.innerHTML += `<article id=${employeeIDForEventListener} class="js-employee__card employee__card">
            <img src=${imgSource} alt="employee's profile picture" class="img--avatar">
               <div class="employee__card__details">
                 <p class="employee__card__details__name">${fullName}</p>
@@ -186,17 +187,17 @@ let displayModalWindow = data => {
   //******** THE MODAL WINDOW ***********//
   // Get the modal
   // console.log(data);
-  const modal = document.getElementById("myModal");
+
   const modalContentContainer = document.querySelector(
     ".modal-content-container"
   );
-  modalContentContainer.innerHTML = "";
-  // Get the element that opens the modal
-  let employeesCards = document.querySelectorAll(".employee__card");
-  //** */console.log(employeesCards)
 
-  //Get close span;
-  let closeSpan = document.querySelector(".close");
+  let intialContent = modalContentContainer.innerHTML;
+  modalContentContainer.innerHTML = intialContent;
+  //console.log(intialContent);
+  // Get the element that opens the modal
+  let employeesCards = document.querySelectorAll(".js-employee__card");
+  //** */console.log(employeesCards)
 
   // When the user clicks on any card, a modal with that card opens
   employeesCards.forEach(employeeCard => {
@@ -225,12 +226,12 @@ let displayModalWindow = data => {
           birthday
         } = employeeCard;
         if (employeeIDForEventListener === employeeCardElementId) {
-          modalContentContainer.innerHTML += `<article  class="employee__card">
+          modalContentContainer.innerHTML += `<article  class="addedElement">
            <img src=${imgSource} alt="employee's profile picture" class="img--avatar">
-           <div class="employee__card__details">
+           <div class="employee__card__details addedElement">
                 <p class="employee__card__details__name">${fullName}</p>
                 <p class="employee__card__details__email">${emailAddress}</p>
-                <br class="addedElement/>
+                <hr class="horizontal-line"/>
                 <p class="employee__card__details__phoneNumber">${phoneNumber}</p>
                 <p class="employee__card__details__address">${address}</p>
                 <p class="employee__card__details__birthday">${birthday}</p>
@@ -242,8 +243,10 @@ let displayModalWindow = data => {
   });
 
   // When the user clicks on <span> (x), close the modal
-  let modalCloser = document.querySelector(".close");
-  modalCloser.addEventListener("click", () => {
+  const modal = document.getElementById("myModal");
+  let modalCloser = document.getElementsByClassName("close")[0];
+  
+  modal.addEventListener("click", e => {
     modal.style.display = "none";
   });
 
